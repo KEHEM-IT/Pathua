@@ -1,0 +1,37 @@
+/* Options page reuses the same design tokens as the popup, just laid out as
+   a full document instead of a fixed-width popout. Imports the popup's CSS
+   variable system via duplication rather than a shared import — kept simple
+   since both files are short; promote to a shared tokens.css if they grow. */
+
+:root {
+  --bg-base: #0e0e12; --bg-surface: #17171d; --bg-elevated: #1f1f28;
+  --border: #2a2a35; --text-primary: #f4f4f6; --text-muted: #8b8b98;
+  --accent: #6c5ce7; --accent-contrast: #ffffff;
+  --font-display: "Sora", system-ui, sans-serif; --font-body: "Inter", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg-base); color: var(--text-primary);
+  font-family: var(--font-body); display: flex; justify-content: center;
+}
+.options { width: 100%; max-width: 480px; padding: 32px 20px; }
+.options-title { font-family: var(--font-display); font-size: 20px; margin: 0 0 20px; }
+.options-section { margin-bottom: 22px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
+.options-heading { font-size: 13px; margin: 0 0 10px; }
+.options-hint { font-size: 12px; color: var(--text-muted); margin: 0 0 10px; }
+.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+.checkbox-field { flex-direction: row; align-items: center; gap: 8px; }
+.field-label { font-size: 12px; font-weight: 600; color: var(--text-muted); }
+.field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.select, .color-input {
+  font-family: var(--font-body); font-size: 12.5px; color: var(--text-primary);
+  background: var(--bg-surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px;
+}
+.device-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.btn {
+  font-family: var(--font-body); font-weight: 600; font-size: 13px; border-radius: 8px;
+  border: 1px solid var(--border); padding: 9px 14px; cursor: pointer;
+}
+.btn--ghost { background: var(--bg-surface); color: var(--text-primary); }
+.btn--primary { background: var(--accent); color: var(--accent-contrast); border-color: transparent; width: 100%; }

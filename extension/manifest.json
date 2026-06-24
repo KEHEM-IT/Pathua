@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "Pathua — QR & Share To Phone",
+  "version": "0.1.0",
+  "description": "Instantly turn the current tab into a QR code and beam the link to your phone.",
+  "default_locale": "en",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "service-worker.js",
+    "type": "module"
+  },
+  "options_page": "options.html",
+  "permissions": ["activeTab", "storage", "identity", "scripting", "downloads"],
+  "host_permissions": [
+    "https://pathua-api.vercel.app/*"
+  ],
+  "oauth2": {
+    "client_id": "REPLACE_WITH_GOOGLE_OAUTH_CLIENT_ID.apps.googleusercontent.com",
+    "scopes": ["openid", "email", "profile"]
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; style-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com"
+  }
+}
+

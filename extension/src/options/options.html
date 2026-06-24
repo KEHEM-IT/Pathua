@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pathua — Settings</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <main class="options">
+    <h1 class="options-title">Pathua settings</h1>
+
+    <section class="options-section">
+      <h2 class="options-heading">Appearance</h2>
+      <label class="field">
+        <span class="field-label">Theme</span>
+        <select id="themeSelect" class="select">
+          <option value="system">Match system</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </section>
+
+    <section class="options-section">
+      <h2 class="options-heading">Default QR style</h2>
+      <div class="field-grid">
+        <label class="field">
+          <span class="field-label">QR color</span>
+          <input type="color" id="defaultColor" class="color-input" />
+        </label>
+        <label class="field">
+          <span class="field-label">Background</span>
+          <input type="color" id="defaultBg" class="color-input" />
+        </label>
+      </div>
+      <label class="field">
+        <span class="field-label">Error correction</span>
+        <select id="defaultErrorCorrection" class="select">
+          <option value="L">Low (L)</option>
+          <option value="M">Medium (M)</option>
+          <option value="Q">Quartile (Q)</option>
+          <option value="H">High (H)</option>
+        </select>
+      </label>
+      <label class="field checkbox-field">
+        <input type="checkbox" id="shareToAllDefault" />
+        <span class="field-label">Share to all devices by default</span>
+      </label>
+    </section>
+
+    <section class="options-section">
+      <h2 class="options-heading">Devices</h2>
+      <p class="options-hint">Manage which phones receive shared links.</p>
+      <ul class="device-list" id="deviceList"></ul>
+    </section>
+
+    <section class="options-section">
+      <h2 class="options-heading">Account</h2>
+      <p class="options-hint" id="accountStatus">Not signed in</p>
+      <button class="btn btn--ghost" id="signOutBtn">Sign out</button>
+    </section>
+
+    <button class="btn btn--primary" id="saveBtn">Save changes</button>
+  </main>
+  <script type="module" src="options.js"></script>
+</body>
+</html>

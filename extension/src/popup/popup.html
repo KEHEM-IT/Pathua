@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pathua</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div id="app" class="app" data-theme="system">
+
+    <!-- ============ HEADER ============ -->
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <span class="finder finder--tl"></span>
+          <span class="finder finder--tr"></span>
+          <span class="finder finder--bl"></span>
+        </span>
+        <span class="brand-name">Pathua</span>
+      </div>
+      <div class="header-actions">
+        <button id="themeToggle" class="icon-btn" title="Toggle theme" aria-label="Toggle theme">
+          <i class="fa-solid fa-circle-half-stroke"></i>
+        </button>
+        <button id="authBtn" class="icon-btn" title="Account" aria-label="Account">
+          <i class="fa-solid fa-user"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- ============ TABS ============ -->
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button class="tab is-active" data-tab="dashboard" role="tab" aria-selected="true">Dashboard</button>
+      <button class="tab" data-tab="customize" role="tab" aria-selected="false">Customize</button>
+      <button class="tab" data-tab="history" role="tab" aria-selected="false">History</button>
+    </nav>
+
+    <main class="panels">
+
+      <!-- ============ DASHBOARD PANEL ============ -->
+      <section class="panel is-active" id="panel-dashboard" role="tabpanel">
+
+        <div class="tab-card" id="tabCard">
+          <img id="tabFavicon" class="tab-favicon" alt="" />
+          <div class="tab-meta">
+            <p class="tab-title" id="tabTitle">Loading…</p>
+            <p class="tab-domain" id="tabDomain">&nbsp;</p>
+          </div>
+        </div>
+
+        <div class="qr-stage" id="qrStage">
+          <div class="qr-skeleton" id="qrSkeleton">
+            <div class="skeleton-pulse"></div>
+          </div>
+          <img id="qrImage" class="qr-image" alt="QR code for the current tab" hidden />
+          <div class="qr-scanline" id="qrScanline" aria-hidden="true"></div>
+        </div>
+
+        <div class="action-row">
+          <button class="btn btn--ghost" id="copyUrlBtn">
+            <i class="fa-regular fa-copy"></i> Copy link
+          </button>
+          <div class="btn-split">
+            <button class="btn btn--ghost" id="downloadPngBtn">PNG</button>
+            <button class="btn btn--ghost" id="downloadSvgBtn">SVG</button>
+          </div>
+        </div>
+
+        <button class="btn btn--share" id="shareBtn">
+          <i class="fa-solid fa-paper-plane"></i> Share to phone
+        </button>
+
+        <div class="device-row" id="deviceRow"></div>
+
+        <div class="empty-state" id="signedOutState" hidden>
+          <i class="fa-regular fa-circle-user empty-icon"></i>
+          <p class="empty-title">Sign in to share</p>
+          <p class="empty-sub">QR generation works without an account. Sign in with Google to send links to your phone.</p>
+          <button class="btn btn--primary" id="signInBtn">Sign in with Google</button>
+        </div>
+
+      </section>
+
+      <!-- ============ CUSTOMIZE PANEL ============ -->
+      <section class="panel" id="panel-customize" role="tabpanel" hidden>
+
+        <label class="field">
+          <span class="field-label">Content type</span>
+          <select id="qrTypeSelect" class="select">
+            <option value="url">Current page URL</option>
+            <option value="text">Plain text</option>
+            <option value="email">Email</option>
+            <option value="phone">Phone number</option>
+            <option value="whatsapp">WhatsApp</option>
+            <option value="sms">SMS</option>
+            <option value="wifi">Wi-Fi credentials</option>
+            <option value="vcard">Contact card</option>
+            <option value="event">Event</option>
+          </select>
+        </label>
+
+        <div id="qrTypeFields"></div>
+
+        <div class="field-grid">
+          <label class="field">
+            <span class="field-label">QR color</span>
+            <input type="color" id="qrColor" value="#000000" class="color-input" />
+          </label>
+          <label class="field">
+            <span class="field-label">Background</span>
+            <input type="color" id="qrBgColor" value="#ffffff" class="color-input" />
+          </label>
+        </div>
+
+        <label class="field">
+          <span class="field-label">Size — <span id="qrSizeValue">256</span>px</span>
+          <input type="range" id="qrSize" min="128" max="512" step="32" value="256" class="range" />
+        </label>
+
+        <label class="field">
+          <span class="field-label">Margin — <span id="qrMarginValue">4</span></span>
+          <input type="range" id="qrMargin" min="0" max="10" step="1" value="4" class="range" />
+        </label>
+
+        <label class="field">
+          <span class="field-label">Error correction</span>
+          <select id="qrErrorCorrection" class="select">
+            <option value="L">Low (L)</option>
+            <option value="M" selected>Medium (M)</option>
+            <option value="Q">Quartile (Q)</option>
+            <option value="H">High (H)</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span class="field-label">Embedded logo (optional)</span>
+          <input type="file" id="qrLogoInput" accept="image/*" class="file-input" />
+        </label>
+
+        <button class="btn btn--primary" id="applyCustomizationBtn">Apply &amp; preview</button>
+      </section>
+
+      <!-- ============ HISTORY PANEL ============ -->
+      <section class="panel" id="panel-history" role="tabpanel" hidden>
+        <label class="field">
+          <input type="search" id="historySearch" class="text-input" placeholder="Search title or URL…" />
+        </label>
+        <div class="history-filters">
+          <button class="chip is-active" data-filter="all">All</button>
+          <button class="chip" data-filter="shared">Shared only</button>
+        </div>
+        <ul class="history-list" id="historyList"></ul>
+        <div class="empty-state" id="historyEmptyState" hidden>
+          <i class="fa-regular fa-clock empty-icon"></i>
+          <p class="empty-title">No links yet</p>
+          <p class="empty-sub">Generate a QR or share a link and it'll show up here.</p>
+        </div>
+      </section>
+
+    </main>
+
+    <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "pathua-extension",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pathua Chrome Extension (MV3) — QR code generator + Share To Phone via FCM",
+  "type": "module",
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "vite build",
+    "build:prod": "vite build --mode production",
+    "icons": "node scripts/generate-icons.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "firebase": "^11.0.0",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.270",
+    "@types/qrcode": "^1.5.5",
+    "sharp": "^0.33.5",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.0"
+  }
+}
