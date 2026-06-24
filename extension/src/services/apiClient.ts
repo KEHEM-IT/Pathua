@@ -12,7 +12,9 @@ import type {
 } from "../types";
 import { getSession } from "./auth";
 
-const API_BASE_URL = "https://pathua-api.vercel.app/api";
+const API_BASE_URL =
+  (typeof import.meta !== "undefined" && (import.meta as { env?: Record<string, string> }).env?.VITE_API_BASE_URL) ||
+  "https://pathua-api.vercel.app/api";
 
 export class ApiClientError extends Error {
   constructor(public code: string, message: string, public fields?: Record<string, string>) {

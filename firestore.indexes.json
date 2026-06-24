@@ -1,0 +1,36 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "share_history",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "url",       "order": "ASCENDING"  },
+        { "fieldPath": "createdAt", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "share_history",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "domain",    "order": "ASCENDING"  },
+        { "fieldPath": "createdAt", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "share_history",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "deviceIds", "arrayConfig": "CONTAINS" },
+        { "fieldPath": "createdAt", "order": "DESCENDING"     }
+      ]
+    },
+    {
+      "collectionGroup": "analytics",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "date", "order": "ASCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

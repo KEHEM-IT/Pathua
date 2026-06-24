@@ -12,7 +12,11 @@ import type { AuthSession } from "../types";
 import { storageGet, storageRemove, storageSet } from "./chromeApi";
 
 const SESSION_KEY = "pathua_auth_session";
-const FIREBASE_API_KEY = "REPLACE_WITH_FIREBASE_WEB_API_KEY";
+// Reads from .env.local at build time via Vite's import.meta.env injection.
+// Falls back to the placeholder so a build without an env file still compiles.
+const FIREBASE_API_KEY =
+  (typeof import.meta !== "undefined" && (import.meta as { env?: Record<string, string> }).env?.VITE_FIREBASE_API_KEY) ||
+  "REPLACE_WITH_FIREBASE_WEB_API_KEY";
 
 interface FirebaseSignInResponse {
   localId: string;

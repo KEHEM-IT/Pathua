@@ -1,0 +1,15 @@
+{
+  "name": "pathua",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pathua — QR & Share To Phone. Monorepo root.",
+  "scripts": {
+    "dev:extension": "cd extension && npm run dev",
+    "dev:backend":   "cd backend  && npm run dev",
+    "build:extension": "cd extension && npm run build",
+    "build:backend":   "cd backend  && npm run build",
+    "build": "npm run build:backend && npm run build:extension",
+    "typecheck": "npm run typecheck --prefix extension && npm run typecheck --prefix backend",
+    "install:all": "npm install --prefix extension && npm install --prefix backend"
+  }
+}

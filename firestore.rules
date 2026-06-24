@@ -1,0 +1,64 @@
+// firestore.rules
+//
+// Deploy with:  firebase deploy --only firestore:rules
+//
+// Design principles:
+//  - Users own their own data exclusively; no cross-user reads.
+//  - The backend (Firebase Admin SDK) bypasses these rules entirely —
+//    Admin SDK always has full access regardless of security rules.
+//  - Rules are therefore a defence-in-depth layer against a compromised
+//    client calling Firestore directly (which our extension never does —
+//    all Firestore writes go through the backend API).
+//  - Keep rules simple and auditable: allowlist > denylist.
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ---- Helper functions ----
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    // ---- users/{uid} ----
+    // Top-level user profile document.
+    match /users/{uid} {
+      allow read, write: if isOwner(uid);
+
+      // ---- users/{uid}/devices/{deviceId} ----
+      match /devices/{deviceId} {
+        allow read, write: if isOwner(uid);
+      }
+
+      // ---- users/{uid}/share_history/{shareId} ----
+      match /share_history/{shareId} {
+        allow read, delete: if isOwner(uid);
+        // Clients never write share_history directly — the backend API does.
+        allow write: if false;
+      }
+
+      // ---- users/{uid}/analytics/{date} ----
+      match /analytics/{date} {
+        allow read: if isOwner(uid);
+        // Analytics are only written by the backend Admin SDK.
+        allow write: if false;
+      }
+
+      // ---- users/{uid}/settings/{doc} ----
+      match /settings/{doc} {
+        allow read, write: if isOwner(uid);
+      }
+    }
+
+    // Deny everything else by default (Firestore's default, but explicit).
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
